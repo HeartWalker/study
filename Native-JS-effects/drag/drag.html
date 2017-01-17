@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 2000px;
+        }
+
+        #mask {
+            width: 100%;
+            height: 100%;
+            opacity: 0.4; /*半透明*/
+            filter: alpha(opacity=40); /*ie 6半透明*/
+            background-color: black;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .nav {
+            height: 30px;
+            background: #036663;
+            border-bottom: 1px solid #369;
+            line-height: 30px;
+            padding-left: 30px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+            text-decoration: none;
+
+        }
+
+        .box {
+            width: 400px;
+            height: 300px;
+            border: 5px solid #eee;
+            background-color: green;
+            box-shadow: 2px 2px 2px 2px #666;
+            position: fixed;
+            top: 40%;
+            left: 40%;
+            display: none;
+        }
+
+        .hd {
+            width: 100%;
+            height: 25px;
+            background-color: gold;
+            border-bottom: 1px solid #369;
+            line-height: 25px;
+            color: white;
+            cursor: move;
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+        }
+    </style>
+    <script src="drag.js"></script>
+</head>
+<body>
+<div id="mask"></div>
+<div class="nav">
+    <a href="javascript:;" id="register">注册信息</a>
+</div>
+<div class="box" id="box">
+    <div class="hd" id="drop">注册信息 (可以拖拽)
+        <span class="close">【关闭】</span>
+    </div>
+    <div class="bd" id="bd">内容</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+.title {
+    width: 840px;
+    color: gold;
+    font: 50px/80px "华文行楷";
+    text-align: center;
+    margin-left: 100px;
+}
+
+.box {
+    width: 840px;
+    height: 480px;
+    background: url("../img/tablebg.png");
+    margin:0 0 0 100px ;
+    float: left;
+    position: relative;
+}
+
+.food {
+    width: 24px;
+    height: 24px;
+    background: url("../img/food.png");
+    position: absolute;
+}
+
+.snakebody {
+    width: 24px;
+    height: 24px;
+    background:green url("../img/snakebody.png");
+    position: absolute;
+}
+
+.snaketitle {
+    width: 24px;
+    height: 24px;
+    background:red url("../img/snaketitle.png");
+    position: absolute;
+}
+
+.left {
+    width: 200px;
+    height: 430px;
+    color: black;
+    font-size: 50px;
+    background-color: green;
+    text-align: center;
+    padding-top: 50px;
+    float: left;
+
+}
+
+.level p {
+    color: gold;
+    font-size: 66px;
+}
+
+.score p {
+    color: red;
+    font-size: 88px;
+}
+
+.btn button {
+    height: 50px;
+    color: black;
+    font-size: 30px;
+    padding: 0 30px;
+    margin: 0 100px;
+    border-radius: 5px;
+    background-color: lightcoral;
+    cursor: pointer;
+
+}
