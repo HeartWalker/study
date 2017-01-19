@@ -1,11 +1,11 @@
 var path = require('path')
+var webpack = require('webpack')
 
 module.exports = {
-  entry: [
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:8080',
-    path.resolve(__dirname, 'src/app.js')
-  ],
+  entry: {
+    app: path.resolve(__dirname, 'src/app.js'),
+    vendors: ['react', 'react-dom']
+  },
   output: {
     path: path.resolve(__dirname, 'dist/js'),
     filename: 'bundle.js'
@@ -29,8 +29,12 @@ module.exports = {
       },
       {
         test: /\.(png|jpg)$/,
-        loader: 'url?limit=25000&name=img/[name].[ext]' // 对25000b 的图片会被编译成字节码 name=后的是字节大于25000的输出路径
+        loader: 'url?limit=25000&name=img/[name].[ext]' // 对25000b 的图片会被编译成字节码 name=后的是字节大于25000的输出路径 在output 配置的path之后
       }
     ]
-  }
+  },
+  plugins: [
+    // 分离第三方应用插件
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+  ]
 }
