@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -21,11 +22,11 @@ module.exports = {
       },
       {
         test: /\.css$/, // Only .css files
-        loader: 'style!css' // Run both loaders style-loader会将css打包到内部
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')// Run both loaders
       },
       {
         test: /\.scss$/,
-        loader: 'style!css!sass'
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
       },
       {
         test: /\.(png|jpg)$/,
@@ -33,8 +34,34 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    // 查找module的话从这里开始查找
+    // root: './node_modules', //绝对路径
+    // 自动扩展文件后缀名，意味着我们require|imoport模块可以省略不写后缀名
+    // 注意一下, extensions 第一个是空字符串! 对应不需要后缀的情况.
+    extensions: ['', '.js', '.json', '.scss', '.jsx'],
+    // 模块别名定义，方便后续直接引用别名，无须多写长长的地址
+    alias: {
+      // AppStore: 'js/stores/AppStores.js', //后续直接 require('AppStore') 即可
+      // ActionType: 'js/actions/ActionType.js',
+      // AppAction: 'js/actions/AppAction.js'
+    }
+  },
   plugins: [
-    // 分离第三方应用插件
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+    new webpack.DefinePlugin({
+      'process.env': {
+        // This has effect on the react lib size
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'), // 分离第三方应用插件
+    new ExtractTextPlugin('[name].css'), // [name]对应的是chunk的name
+    new webpack.optimize.DedupePlugin(), // 去重
+    // 压缩
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
   ]
 }
