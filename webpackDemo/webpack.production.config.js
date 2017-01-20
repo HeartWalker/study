@@ -21,7 +21,7 @@ module.exports = {
       },
       {
         test: /\.css$/, // Only .css files
-        loader: 'style!css' // Run both loaders
+        loader: 'style!css' // Run both loaders style-loader会将css打包到内部
       },
       {
         test: /\.scss$/,

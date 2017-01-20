@@ -1,13 +1,12 @@
 var path = require('path')
 
 module.exports = {
-  entry: [
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:8080',
-    path.resolve(__dirname, 'src/app.js')
-  ],
+  entry:{
+    app: path.resolve(__dirname, 'src/app.js'),
+  },
   output: {
-    path: path.resolve(__dirname, 'dist/js'),
+    path: path.resolve(__dirname, 'dist/js'), // path参数表示生成文件的根目录，需要传入一个绝对路径。path参数和后面的filename参数共同组成入口文件的完整路径
+    publicPath: '',
     filename: 'bundle.js'
   },
   module: {
