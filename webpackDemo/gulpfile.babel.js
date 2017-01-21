@@ -5,11 +5,9 @@ import webpack from 'webpack'
 import webpackDevelopConfig from './webpack.develop.config'
 import webpackProductionConfig from './webpack.production.config'
 import gulp from 'gulp'
-import gulpLoadPlugins from 'gulp-load-plugins'
 import gutil from 'gulp-util'
-const plugins = gulpLoadPlugins()
 
-// develop confi
+// develop config
 gulp.task('default', ['webpack-dev-server'])
 
 gulp.task('webpack-dev-server', function (callback) {
@@ -39,7 +37,12 @@ gulp.task('webpack-dev-server', function (callback) {
 // production config
 gulp.task('production', ['webpack:build'])
 
-gulp.task('webpack:build', function (callback) {
+// 删除dist文件
+gulp.task('clean', () => {
+  return del(['dist'])
+})
+
+gulp.task('webpack:build', ['clean'], function (callback) {
   // modify some webpack config options
   let myConfig = Object.create(webpackProductionConfig)
   // run webpack

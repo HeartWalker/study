@@ -1,15 +1,14 @@
 var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var configEntry = require('./webpack.base.config')
 
 module.exports = {
-  entry: {
-    app: path.resolve(__dirname, 'src/app.js'),
-    vendors: ['react', 'react-dom']
-  },
+  entry: configEntry,
   output: {
-    path: path.resolve(__dirname, 'dist/js'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'dist/js'), // 输出文件根目录\
+    publicPath: '',
+    filename: '[name].js'
   },
   module: {
     loaders: [
@@ -54,7 +53,7 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'), // 分离第三方应用插件
+    // new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'), // 分离第三方应用插件
     new ExtractTextPlugin('[name].css'), // [name]对应的是chunk的name
     new webpack.optimize.DedupePlugin(), // 去重
     // 压缩
