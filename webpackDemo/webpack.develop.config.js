@@ -1,7 +1,9 @@
-var path = require('path')
-var webpack = require('webpack')
+// var path = require('path')
+import path from 'path'
+import webpack from 'webpack'
+// var webpack = require('webpack')
 
-module.exports = {
+ const webpackDevelopConfig = {
   entry: {
     app: path.resolve(__dirname, 'src/app.js')
   },
@@ -42,3 +44,5 @@ module.exports = {
     })
   ]
 }
+
+export default webpackDevelopConfig

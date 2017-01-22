@@ -2,7 +2,7 @@
 img{
     height: 200px;
     width: 200px;
-    background-image: url("../img/demo.jpg");
+    /*background-image: url("../img/demo.jpg");*/
 }
 
 .color{

@@ -1,12 +1,14 @@
 var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var configEntry = require('./webpack.base.config')
-
+//var configEntry = require('./webpack.base.config')
+//configEntry['vendors'] = ['react', 'react-dom']
 module.exports = {
-  entry: configEntry,
+  entry: {
+    'page/page1': './src/page/page1/page1'
+  },
   output: {
-    path: path.resolve(__dirname, 'dist/js'), // 输出文件根目录\
+    path: path.resolve(__dirname, 'dist/src'), // 输出文件根目录\
     publicPath: '',
     filename: '[name].js'
   },
@@ -28,7 +30,7 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
       },
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|gif)$/,
         loader: 'url?limit=25000&name=img/[name].[ext]' // 对25000b 的图片会被编译成字节码 name=后的是字节大于25000的输出路径 在output 配置的path之后
       }
     ]
@@ -53,7 +55,7 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    // new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'), // 分离第三方应用插件
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'), // 分离第三方应用插件
     new ExtractTextPlugin('[name].css'), // [name]对应的是chunk的name
     new webpack.optimize.DedupePlugin(), // 去重
     // 压缩

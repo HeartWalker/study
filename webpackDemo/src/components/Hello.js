@@ -6,9 +6,6 @@ import './Hellow.scss'
 import React, {Component} from 'react'
 // import * as obj from './module'
 
-// console.log(a)
-// console.log(obj)
-
 // 直接在js中定义样式，内嵌样式
 let style = {
     backgroundColor: 'blue'

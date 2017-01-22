@@ -42,7 +42,9 @@ console.log(entries)
 var configEntry = {};
 
 entries.forEach((page) => {
-  configEntry[page] = path.resolve(__dirname, './src/' + page);
+  var pa = page.replace(/\..*$/,'')
+  configEntry[pa] = path.resolve(__dirname, './src/' + page);
 });
+console.log(configEntry)
 
 module.exports = configEntry;
