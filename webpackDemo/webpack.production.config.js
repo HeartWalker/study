@@ -1,12 +1,10 @@
 var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-//var configEntry = require('./webpack.base.config')
-//configEntry['vendors'] = ['react', 'react-dom']
+var configEntry = require('./webpack.base.config')
+configEntry['vendors'] = ['react', 'react-dom']
 module.exports = {
-  entry: {
-    'page/page1': './src/page/page1/page1'
-  },
+  entry: configEntry,
   output: {
     path: path.resolve(__dirname, 'dist/src'), // 输出文件根目录\
     publicPath: '',
