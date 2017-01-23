@@ -1,14 +1,15 @@
 var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var configEntry = require('./webpack.base.config')
+import configEntry from './webpack.base.config'
 configEntry['vendors'] = ['react', 'react-dom']
 module.exports = {
   entry: configEntry,
   output: {
-    path: path.resolve(__dirname, 'dist/src'), // 输出文件根目录\
+    path: path.resolve(__dirname, 'dist'), // 输出文件根目录\
     publicPath: '',
-    filename: '[name].js'
+    filename: '[name].js',
+    chunkFilename: '[id].bundle.js',
   },
   module: {
     loaders: [
@@ -53,7 +54,11 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'), // 分离第三方应用插件
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendors', // 这公共代码的chunk名为'commons'
+      filename: '[name].js', // 生成后的文件名，虽说用了[name]，但实际上就是'commons.bundle.js'了
+      minChunks: 2, // 设定要有4个chunk（即4个页面）加载的js模块才会被纳入公共代码。这数目自己考虑吧，我认为3-5比较合适。
+    }), // 分离第三方应用插件
     new ExtractTextPlugin('[name].css'), // [name]对应的是chunk的name
     new webpack.optimize.DedupePlugin(), // 去重
     // 压缩

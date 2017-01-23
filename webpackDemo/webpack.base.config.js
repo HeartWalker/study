@@ -4,16 +4,15 @@ import glob from 'glob'
 
 let entryDirs =  path.resolve(__dirname, './src')
 
-let entries = glob.sync('page/**/!(_)*.js', {cwd: entryDirs})
+let entries = glob.sync('page/**/!(_)*.js', {cwd: entryDirs}) // 入口文件
 
 console.log(entries)
 
 let configEntry = {}
-
 entries.forEach((page) => {
-  var pa = page.replace(/\..*$/,'')
+  let pa = page.replace(/\..*$/,'')
   configEntry[pa] = path.resolve(entryDirs, pa);
 })
 console.log(configEntry)
 
-module.exports = configEntry;
+export default configEntry
