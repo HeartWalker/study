@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+<div id="pagination">
 
+</div>
 </body>
+<script src="./index.js"></script>
+<script type="text/javascript">
+    var conf = {
+        'total':100,
+        'dispalyPage':2,
+        'currentPage':5,
+        'click':function(e){ //e为当前页码
+            /*        $.get('/php',{"page":e},function(data){
+             console.log('ok')
+             })*/
+        }
+    }
+    var page = new pageFunc(conf);
+</script>
 </html>

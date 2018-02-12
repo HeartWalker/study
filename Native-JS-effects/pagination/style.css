@@ -1,0 +1,41 @@
+#pagination a{
+    text-decoration:none;
+    display: inline;
+    float: left;
+    padding: 3px 10px 3px 10px;
+    overflow: hidden;
+    border:1px solid #ccc;
+    color:#999;
+    margin-right: 5px;
+    cursor: pointer;
+    background: #fff;
+
+}
+#pagination a:hover{
+    border: 1px solid #FF6600;
+    background-color: #FF6600;
+    color: #fff;
+}
+#pagination span{
+    display: inline;
+    float: left;
+    color:#999;
+    background: #fff;
+    margin-right: 5px;
+}
+#pagination a.current{
+    color: #FF6600;
+    border: 1px solid #FF6600;
+    background-color: #FFEEE5;
+}
+#pagination input {
+    float: left;
+    width: 50px;
+    height: 27px;
+    padding: 0;
+    margin-right: 9px;
+    border-width: 1px;
+    outline: none;
+    text-align: center;
+
+}
