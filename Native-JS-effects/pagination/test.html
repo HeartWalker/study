@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>分页效果</title>
     <style type="text/css">
-        #page-coat a{
+        #pagination a{
             text-decoration:none;
             display: inline;
             float: left;
@@ -17,18 +17,18 @@
             background: #fff;
 
         }
-        #page-coat a:hover{
+        #pagination a:hover{
             border: 1px solid #FF6600;
             background-color: #FF6600;
             color: #fff;
         }
-        #page-coat span{
+        #pagination span{
             display: inline;
             float: left;
             color:#999;
             background: #fff;
         }
-        #page-coat a.lmw-current{
+        #pagination a.current{
             color: #FF6600;
             border: 1px solid #FF6600;
             background-color: #FFEEE5;
@@ -36,7 +36,7 @@
     </style>
 </head>
 <body class="l-bg2">
-<div id="page-coat">
+<div id="pagination">
 
 </div>
 </body>
@@ -61,36 +61,36 @@
         };
 
         listenersPre = {
-            'lmw-pre' : function(opts) {
+            'pre' : function(opts) {
                 _this.prevClick()
                 return false;
             }
         };
 
         listenersAdd = {
-            'lmw-add' : function(opts) {
+            'add' : function(opts) {
                 _this.addClick()
                 return false;
             }
         };
 
         var rootele = this.createPage(1,total);
-        document.getElementById('page-coat').innerHTML = rootele
+        document.getElementById('pagination').innerHTML = rootele
 
-        $on(document.getElementById('page-coat'), ['click'], listeners);//点击a标签
-        $on(document.getElementById('page-coat'), ['click'], listenersPre);//点击上一页
-        $on(document.getElementById('page-coat'), ['click'], listenersAdd);//点击下一页
+        $on(document.getElementById('pagination'), 'click', listeners);//点击a标签
+        $on(document.getElementById('pagination'), 'click', listenersPre);//点击上一页
+        $on(document.getElementById('pagination'), 'click', listenersAdd);//点击下一页
 
     }
     //创建HTML分页结构字符串
     pageFunc.prototype.createPage = function(page,total){
-        var str = `<a class="lmw-current" href="#">${page}</a>`
+        var str = `<a class="current" href="javascript:;">${page}</a>`
         for(var i=1;i<=3;i++){
             if(page-i>1){
-                str = `<a attr-action="setWhat" href="#">${page-i}</a>`+str
+                str = `<a attr-action="setWhat" href="javascript:;">${page-i}</a>`+str
             }
             if(page+i<total){
-                str = str+`<a attr-action="setWhat" href="#">${(page+i)}</a>`
+                str = str+`<a attr-action="setWhat" href="javascript:;">${(page+i)}</a>`
             }
         };
         if(page-4>1){
@@ -100,10 +100,10 @@
             str = str+'<span>...</span>'
         };
         if(page>1){
-            str = `<a class="lmw-pre" href="#">上一页</a><a attr-action="setWhat" href="#">1</a>`+str
+            str = `<a class="pre" href="#">上一页</a><a attr-action="setWhat" href="#">1</a>`+str
         };
         if(page<total){
-            str = str+`<a attr-action="setWhat"  href="#">${total}</a><a class="lmw-add"  href="#">下一页</a>`
+            str = str+`<a attr-action="setWhat"  href="#">${total}</a><a class="add"  href="#">下一页</a>`
         };
         return str
     }
@@ -112,7 +112,7 @@
         var total = this.total
         var va = --this.currentPage
         var newret = this.createPage(va, total)
-        document.getElementById('page-coat').innerHTML = newret
+        document.getElementById('pagination').innerHTML = newret
         this.myFunc(va)
     }
     //下一页方法
@@ -120,7 +120,7 @@
         var total = this.total
         var va = ++this.currentPage
         var newret = this.createPage(va, total)
-        document.getElementById('page-coat').innerHTML = newret
+        document.getElementById('pagination').innerHTML = newret
         this.myFunc(va)
     };
     //点击方法
@@ -129,7 +129,7 @@
         var va = parseInt(_this.innerText);
         this.currentPage = va
         var rootele = this.createPage(va, total)
-        document.getElementById('page-coat').innerHTML = rootele
+        document.getElementById('pagination').innerHTML = rootele
         this.myFunc(va)
     };
 

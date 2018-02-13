@@ -1,4 +1,4 @@
-//todo options ,remove envetlistener, jump page
+//todo options ,remove envetlistener
 /**
  *
  * @param config
@@ -14,36 +14,46 @@ function pageFunc(config) {
 
 pageFunc.prototype.init = function () {
     var _this = this;
+    var root = document.getElementById( this.id );
+    var jumpPage = '';
 
     listeners = {
-        'setWhat': function ( index ) {
-            _this.jump( index );
+        'setWhat': function ( src ) {
+            _this.jump( src.innerText );
             return false;
-        }
-    };
-
-    listenersPre = {
+        },
         'pre': function () {
             _this.prevClick();
             return false;
-        }
-    };
-
-    listenersNext = {
+        },
         'next': function () {
             _this.nextClick();
             return false;
+        },
+        'jumpInput': function ( src ) {
+            var val = src.value,
+                reg = /[^\d]/g;
+            if( reg.test( val ) ){
+                val = val.replace( reg, '');
+            }
+            (parseInt(val) > _this.total) && (val = _this.total);
+            (parseInt(val) === 0) && (value = 1);
+            src.value = jumpPage = val;
+        },
+        'jumpPage': function ( src ) {
+            if( !jumpPage ) return;
+            _this.jump( jumpPage );
+            jumpPage = '';
+            return false;
         }
+
     };
 
+
     var node = this.createPage( this.currentPage, this.total );
-    var root = document.getElementById( this.id );
     root.innerHTML = node;
 
-    on( root, 'click', listeners );
-    on( root, 'click', listenersPre );
-    on( root, 'click', listenersNext );
-
+    on( root, ['click', 'input' ,'propertype'], listeners );
 
 };
 
@@ -59,10 +69,10 @@ pageFunc.prototype.createPage = function ( page, total ) {
     var len = this.dispalyPage;
     for( i; i<= len; i++ ){
         if( page - 1 > i ){
-            str = '<a attr-action="setWhat" href="javascript:;">' + ( page - i ) + '</a>' + str;
+            str = '<a class="setWhat" href="javascript:;">' + ( page - i ) + '</a>' + str;
         }
         if( page + i < total ){
-            str = str + '<a attr-action="setWhat" href="javascript:;">' + ( page + i ) + '</a>' ;
+            str = str + '<a class="setWhat" href="javascript:;">' + ( page + i ) + '</a>' ;
 
         }
     }
@@ -74,16 +84,16 @@ pageFunc.prototype.createPage = function ( page, total ) {
     }
     if( page > 1 ){
         str = '<a class="pre" href="javascript:;">' + '上一页' + '</a>'
-                + '<a attr-action="setWhat" href="javascript:;">' + 1 + '</a>'
+                + '<a class="setWhat" href="javascript:;">' + 1 + '</a>'
                 + str;
     }
     if( page < total ){
         str = str
-            + '<a attr-action="setWhat" href="javascript:;">' + total + '</a>'
+            + '<a class="setWhat" href="javascript:;">' + total + '</a>'
             + '<a class="next" href="javascript:;">' + '下一页' +'</a>';
     }
 
-    str = str + '<input type="text"/><a>跳转</a>';
+    str = str + '<input type="text" class="jumpInput"/><a href="javascript:;" class="jumpPage">跳转</a>';
     return str;
 
 }
@@ -121,9 +131,9 @@ function on( target, event, listeners ) {
             action,
             returnVal;
         while( src && src !== target ){
-            action = src.getAttribute( 'attr-action' ) || src.getAttribute( 'class');
+            action = src.getAttribute( 'class');
             if( listeners[action] ){
-                returnVal = listeners[action]( src.innerText );
+                returnVal = listeners[action]( src  );
 
                 if( !returnVal ){
                     break;
