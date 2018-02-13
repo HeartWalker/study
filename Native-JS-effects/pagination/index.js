@@ -1,10 +1,13 @@
 //todo options ,remove envetlistener
+;
+var pageFunc = (function () {
+
 /**
  *
  * @param config
  */
 function pageFunc(config) {
-    this.id = 'pagination' || config.id; //容器id
+    this.id = config.id || 'pagination'; //容器id
     this.cb = config.click; //用户点击要执行的方法
     this.total = config.total; //总页数
     this.currentPage = config.currentPage || 1; //当前页码
@@ -190,4 +193,7 @@ function addEvent( target, type, handle, options ) {
         target["on" + type ] = handle;
     }
 }
+
+return pageFunc;
+})();
 
