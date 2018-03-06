@@ -129,8 +129,8 @@ pageFunc.prototype.jump = function ( index ) {
 
 function on( target, event, listeners ) {
     addEvent( target, event, function (e) {
-        var e = e.target || window.event,
-            src = e.target || e.srcElement.constructor,
+        var e = e || window.event,
+            src = e.target || e.srcElement,
             action,
             returnVal;
         while( src && src !== target ){

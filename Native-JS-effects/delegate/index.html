@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #parent{
+            width: 200px;
+            height: 200px;
+            border: 1px dotted red;
+        }
+        #child {
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+<div id="parent">
+    <div id="child"></div>
+</div>
+</body>
+<script src="./delegate.js"></script>
+<script>
+    addEvent(document.getElementById('parent'),function (target) {
+                if (target.tagName === 'DIV'){
+                    return true;
+                }
+        },
+        'click mouseover', function (e) {
+            console.log(e);
+        })
+</script>
+</html>
