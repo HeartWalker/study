@@ -14,7 +14,7 @@ var distPicker = (function(){
         this.select1 = 'select1';
         this.select2 = 'select2';
         this.select3 = 'select3';
-        this.url = './data.json';
+        this.url = url;
         this.data = {};
         this.init();
 
