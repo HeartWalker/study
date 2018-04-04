@@ -9,26 +9,37 @@ window.onload = function () {
 	var colume = parseInt(divWidth / boxWidth);
 	//定义第一行图片高度数组
 	var arrHeight = [];
-	walterfalls();
+    var arrHeightIndex;
+    var arrHeightValue;
+    walterfalls();
 	//判断第一行图片个数
 	function walterfalls(){
 		for (var i = 0; i < boxes.length; i++) {
 			if (i < colume) {
 				arrHeight[i] = boxes[i].offsetHeight;
 			} else {
-				var arrHeightIndex = getM(arrHeight).min.index;
-				var arrHeightValue = getM(arrHeight).min.value;
-
-				//分配下一张图片位置
-				boxes[i].style.position = "absolute";
-				boxes[i].style.top = arrHeightValue + "px";
-				boxes[i].style.left = boxes[arrHeightIndex].offsetLeft + "px";
-				//重置最小高度的高度
-				arrHeight[arrHeightIndex] = arrHeightValue + boxes[i].offsetHeight;
+				domPosition(boxes[i]);
 			}
 		}
 
 	}
+
+	//图片定位
+    /**
+	 *
+     * @param dom {element}
+     */
+	function domPosition(dom) {
+        arrHeightIndex = getM(arrHeight).min.index;
+        arrHeightValue = getM(arrHeight).min.value;
+
+        //分配下一张图片位置
+        dom.style.position = "absolute";
+        dom.style.top = arrHeightValue + "px";
+        dom.style.left = boxes[arrHeightIndex].offsetLeft + "px";
+        //重置最小高度的高度
+        arrHeight[arrHeightIndex] = arrHeightValue + dom.offsetHeight;
+    }
 
 	//判断页面滚动到底部
 	function toButtom() {
@@ -68,10 +79,10 @@ window.onload = function () {
 			for(var i=0;i<pictures.length;i++){
 				var newNode = boxes[0].cloneNode(true);
 				newNode.children[0].src = pictures[i].src;
-				container.appendChild(newNode);
+                container.appendChild(newNode);
+                domPosition(newNode);
 			}
 		}
-		walterfalls();
 	}
 
 
